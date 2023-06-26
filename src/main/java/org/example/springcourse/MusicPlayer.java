@@ -5,37 +5,27 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Random;
 
 public class MusicPlayer {
+
     @Value("${musicPlayer.name}")
     private String name;
+
     @Value("${musicPlayer.volume}")
     private int volume;
 
-    public String getName() {
-        return name;
-    }
+    private List<Music> musicList;
 
-    public int getVolume() {
-        return volume;
-    }
 
-    private ClassicMusic classicMusic;
-
-    private RockMusic rockMusic;
-
-    public MusicPlayer(ClassicMusic classicMusic, RockMusic rockMusic) {
-        this.classicMusic = classicMusic;
-        this.rockMusic = rockMusic;
+    public MusicPlayer(List<Music> musicList) {
+        this.musicList = musicList;
     }
 
     public String playMusic() {
-        return "Playing: " + classicMusic.getSong();
-    }
+        Random random = new Random();
 
-//    public void playMusicList() {
-//        for (Music musicElement : musicList) {
-//            System.out.println("Playing: " + musicElement.getSong());
-//        }
-//    }
+        return "Playing: " + musicList.get(random.nextInt(musicList.size())).getSong()
+                + " with volume " + this.volume;
+    }
 }

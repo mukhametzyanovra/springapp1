@@ -1,17 +1,18 @@
 package org.example.springcourse;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
-@ComponentScan("org.example.springcourse")
 @PropertySource("classpath:musicPlayer.properties")
 public class SpringConfig {
 
     @Bean
-    public ClassicMusic classicMusic() {
+    @Scope("prototype")
+    public ClassicMusic classicalMusic() {
         return new ClassicMusic();
     }
 
@@ -21,8 +22,19 @@ public class SpringConfig {
     }
 
     @Bean
+    public RapMusic jazzMusic() {
+        return new RapMusic();
+    }
+
+    @Bean
+    public List<Music> musicList() {
+        // Этот лист неизменяемый (immutable)
+        return Arrays.asList(classicalMusic(), rockMusic(), jazzMusic());
+    }
+
+    @Bean
     public MusicPlayer musicPlayer() {
-        return new MusicPlayer(classicMusic(), rockMusic());
+        return new MusicPlayer(musicList());
     }
 
     @Bean
