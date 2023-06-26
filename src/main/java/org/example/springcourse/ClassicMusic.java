@@ -3,14 +3,14 @@ package org.example.springcourse;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClassicalMusic implements Music {
+public class ClassicMusic implements Music {
 
-    private ClassicalMusic() {
+    private ClassicMusic() {
 
     }
 
-    public static ClassicalMusic getClassicalMusic() {
-        return new ClassicalMusic();
+    public static ClassicMusic getClassicalMusic() {
+        return new ClassicMusic();
     }
 
     @Override
